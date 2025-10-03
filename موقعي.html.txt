@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورشة سقف العلم للحدادة المتنقلة</title>
+    <style>
+        /* كل الأنماط في مكان واحد */
+        body { 
+            font-family: 'Arial', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background: #f0f8ff;
+            line-height: 1.6;
+        }
+        
+        /* الهيدر */
+        .header {
+            background: linear-gradient(135deg, #1e3a8a, #0d9488);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        /* زر التحكم */
+        .control-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #0d9488;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        /* لوحة التحكم */
+        .control-panel {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: white;
+            transition: 0.4s;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1001;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+        }
+        
+        .control-panel.active {
+            right: 0;
+        }
+        
+        /* الأقسام */
+        .section {
+            background: white;
+            margin: 20px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        /* النماذج */
+        .form-group {
+            margin: 20px 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #1e3a8a;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        
+        input:focus, textarea:focus {
+            border-color: #0d9488;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+        }
+        
+        /* الأزرار */
+        .btn {
+            background: #0d9488;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: #0c7c6c;
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger {
+            background: #ef4444;
+        }
+        
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+        
+        /* العناصر */
+        .item {
+            background: #f8fafc;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-right: 4px solid #0d9488;
+        }
+        
+        .item img {
+            max-width: 200px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        /* التنبيهات */
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-right: 4px solid;
+        }
+        
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-color: #10b981;
+        }
+        
+        /* الوسائط المتعددة */
+        @media (min-width: 768px) {
+            .control-panel {
+                width: 500px;
+                right: -500px;
+            }
+            
+            .section {
+                margin: 20px auto;
+                max-width: 800px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- زر التحكم -->
+    <div class="control-btn" onclick="toggleControlPanel()">⚙️</div>
+
+    <!-- الموقع الرئيسي -->
+    <header class="header" id="mainHeader">
+        <h1 id="siteTitle">ورشة سقف العلم للحدادة المتنقلة</h1>
+        <p id="siteDescription">تميز في الصنعة، دقة في التنفيذ</p>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main>
+        <!-- قسم الخدمات -->
+        <section class="section">
+            <h2>🛠️ خدماتنا المتميزة</h2>
+            <div id="servicesContainer"></div>
+        </section>
+
+        <!-- قسم معرض الأعمال -->
+        <section class="section">
+            <h2>🖼️ معرض أعمالنا</h2>
+            <div id="portfolioContainer"></div>
+        </section>
+
+        <!-- قسم التواصل -->
+        <section class="section">
+            <h2>📞 اتصل بنا</h2>
+            <div id="contactInfo">
+                <p><strong>📞 الهاتف:</strong> <span id="contactPhone">+966 55 162 7128</span></p>
+                <p><strong>📍 الموقع:</strong> <span id="contactLocation">الخميس وجميع أنحاء المملكة</span></p>
+                <p><strong>🕒 ساعات العمل:</strong> <span id="contactHours">السبت - الخميس: 8 صباحاً - 10 مساءً</span></p>
+            </div>
+        </section>
+    </main>
+
+    <!-- لوحة التحكم -->
+    <div class="control-panel" id="controlPanel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2 style="color: #1e3a8a; margin: 0;">🎛️ لوحة التحكم</h2>
+            <button class="btn btn-danger" onclick="toggleControlPanel()">✕ إغلاق</button>
+        </div>
+
+        <!-- المعلومات الأساسية -->
+        <div class="section">
+            <h3>📝 المعلومات الأساسية</h3>
+            <div class="form-group">
+                <label>عنوان الموقع:</label>
+                <input type="text" id="inputTitle" placeholder="أدخل عنوان الموقع">
+            </div>
+            <div class="form-group">
+                <label>وصف الموقع:</label>
+                <textarea id="inputDescription" placeholder="أدخل وصف الموقع"></textarea>
+            </div>
+            <div class="form-group">
+                <label>صورة الخلفية:</label>
+                <input type="text" id="inputBackground" placeholder="رابط صورة الخلفية">
+            </div>
+            <button class="btn" onclick="saveBasicInfo()">💾 حفظ المعلومات</button>
+        </div>
+
+        <!-- إدارة الخدمات -->
+        <div class="section">
+            <h3>🛠️ إدارة الخدمات</h3>
+            <div class="form-group">
+                <label>اسم الخدمة:</label>
+                <input type="text" id="serviceName" placeholder="أدخل اسم الخدمة">
+            </div>
+            <div class="form-group">
+                <label>وصف الخدمة:</label>
+                <textarea id="serviceDescription" placeholder="أدخل وصف الخدمة"></textarea>
+            </div>
+            <div class="form-group">
+                <label>صورة الخدمة:</label>
+                <input type="text" id="serviceImage" placeholder="رابط صورة الخدمة">
+            </div>
+            <button class="btn" onclick="addService()">➕ إضافة خدمة</button>
+            <div id="servicesList"></div>
+        </div>
+
+        <!-- إدارة المعرض -->
+        <div class="section">
+            <h3>🖼️ إدارة المعرض</h3>
+            <div class="form-group">
+                <label>عنوان العمل:</label>
+                <input type="text" id="workTitle" placeholder="أدخل عنوان العمل">
+            </div>
+            <div class="form-group">
+                <label>وصف العمل:</label>
+                <textarea id="workDescription" placeholder="أدخل وصف العمل"></textarea>
+            </div>
+            <div class="form-group">
+                <label>صورة العمل:</label>
+                <input type="text" id="workImage" placeholder="رابط صورة العمل">
+            </div>
+            <button class="btn" onclick="addWork()">🎨 إضافة عمل</button>
+            <div id="worksList"></div>
+        </div>
+
+        <!-- معلومات التواصل -->
+        <div class="section">
+            <h3>📞 معلومات التواصل</h3>
+            <div class="form-group">
+                <label>رقم الهاتف:</label>
+                <input type="text" id="inputPhone" placeholder="أدخل رقم الهاتف">
+            </div>
+            <div class="form-group">
+                <label>الموقع:</label>
+                <input type="text" id="inputLocation" placeholder="أدخل الموقع">
+            </div>
+            <div class="form-group">
+                <label>ساعات العمل:</label>
+                <textarea id="inputHours" placeholder="أدخل ساعات العمل"></textarea>
+            </div>
+            <button class="btn" onclick="saveContactInfo()">💾 حفظ معلومات التواصل</button>
+        </div>
+
+        <!-- نقل البيانات -->
+        <div class="section">
+            <h3>📁 نقل البيانات بين الأجهزة</h3>
+            <div class="form-group">
+                <label>كود البيانات:</label>
+                <textarea id="dataCode" style="height: 150px; font-family: monospace;" placeholder="سيظهر هنا كود البيانات..."></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn" onclick="generateDataCode()">📋 إنشاء كود</button>
+                <button class="btn" onclick="copyDataCode()">⎘ نسخ الكود</button>
+                <button class="btn" onclick="importDataCode()">📥 استيراد البيانات</button>
+            </div>
+        </div>
+
+        <!-- التعليمات -->
+        <div class="section" style="background: #e3f2fd; border-right-color: #2196f3;">
+            <h3>🎯 طريقة رفع الصور</h3>
+            <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h4>لرفع صورك الشخصية:</h4>
+                <ol>
+                    <li><strong>التقط الصورة</strong> من كاميرا الجوال أو اختر من المعرض</li>
+                    <li><strong>ادخل على موقع:</strong> 
+                        <button class="btn" onclick="window.open('https://imgbb.com', '_blank')" style="padding: 8px 15px; font-size: 14px; margin: 5px;">imgbb.com</button>
+                    </li>
+                    <li><strong>اسحب الصورة</strong> إلى الموقع أو اضغط Upload</li>
+                    <li><strong>انتظر الرفع</strong> ثم انسخ رابط الصورة (URL)</li>
+                    <li><strong>الصق الرابط</strong> في الحقل المخصص باللوحة</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // البيانات الافتراضية
+        let siteData = {
+            title: "ورشة سقف العلم للحدادة المتنقلة",
+            description: "تميز في الصنعة، دقة في التنفيذ",
+            background: "",
+            phone: "+966 55 162 7128",
+            location: "الخميس وجميع أنحاء المملكة",
+            hours: "السبت - الخميس: 8 صباحاً - 10 مساءً",
+            services: [
+                {
+                    id: 1,
+                    name: "أبواب ونوافذ معدنية",
+                    description: "تصميم وتصنيع أبواب ونوافذ معدنية عالية الجودة",
+                    image: ""
+                }
+            ],
+            portfolio: [
+                {
+                    id: 1,
+                    title: "أبواب معدنية فاخرة",
+                    description: "تصميم مميز مع تفاصيل فنية دقيقة",
+                    image: ""
+                }
+            ]
+        };
+
+        // تحميل البيانات عند البدء
+        function loadData() {
+            const saved = localStorage.getItem('workshopData');
+            if (saved) {
+                siteData = JSON.parse(saved);
+            }
+            updateWebsite();
+        }
+
+        // تحديث الموقع
+        function updateWebsite() {
+            // المعلومات الأساسية
+            document.getElementById('siteTitle').textContent = siteData.title;
+            document.getElementById('siteDescription').textContent = siteData.description;
+            
+            // الخلفية
+            if (siteData.background) {
+                document.getElementById('mainHeader').style.backgroundImage = `linear-gradient(rgba(30, 58, 138, 0.8), rgba(13, 148, 136, 0.8)), url('${siteData.background}')`;
+            }
+            
+            // معلومات التواصل
+            document.getElementById('contactPhone').textContent = siteData.phone;
+            document.getElementById('contactLocation').textContent = siteData.location;
+            document.getElementById('contactHours').textContent = siteData.hours;
+            
+            // الخدمات
+            const servicesContainer = document.getElementById('servicesContainer');
+            servicesContainer.innerHTML = '';
+            siteData.services.forEach(service => {
+                const serviceDiv = document.createElement('div');
+                serviceDiv.className = 'item';
+                serviceDiv.innerHTML = `
+                    <h3>${service.name}</h3>
+                    <p>${service.description}</p>
+                    ${service.image ? `<img src="${service.image}" alt="${service.name}" style="max-width: 100%; border-radius: 8px;">` : ''}
+                `;
+                servicesContainer.appendChild(serviceDiv);
+            });
+            
+            // المعرض
+            const portfolioContainer = document.getElementById('portfolioContainer');
+            portfolioContainer.innerHTML = '';
+            siteData.portfolio.forEach(work => {
+                const workDiv = document.createElement('div');
+                workDiv.className = 'item';
+                workDiv.innerHTML = `
+                    <h3>${work.title}</h3>
+                    <p>${work.description}</p>
+                    ${work.image ? `<img src="${work.image}" alt="${work.title}" style="max-width: 100%; border-radius: 8px;">` : ''}
+                `;
+                portfolioContainer.appendChild(workDiv);
+            });
+        }
+
+        // حفظ البيانات
+        function saveData() {
+            localStorage.setItem('workshopData', JSON.stringify(siteData));
+            updateWebsite();
+            showAlert('تم حفظ التغييرات بنجاح!', 'success');
+        }
+
+        // فتح/إغلاق لوحة التحكم
+        function toggleControlPanel() {
+            const panel = document.getElementById('controlPanel');
+            panel.classList.toggle('active');
+            if (panel.classList.contains('active')) {
+                loadToControlPanel();
+            }
+        }
+
+        // تحميل البيانات إلى لوحة التحكم
+        function loadToControlPanel() {
+            document.getElementById('inputTitle').value = siteData.title;
+            document.getElementById('inputDescription').value = siteData.description;
+            document.getElementById('inputBackground').value = siteData.background;
+            document.getElementById('inputPhone').value = siteData.phone;
+            document.getElementById('inputLocation').value = siteData.location;
+            document.getElementById('inputHours').value = siteData.hours;
+            
+            // تحديث قوائم الخدمات والأعمال
+            updateServicesList();
+            updateWorksList();
+        }
+
+        // حفظ المعلومات الأساسية
+        function saveBasicInfo() {
+            siteData.title = document.getElementById('inputTitle').value;
+            siteData.description = document.getElementById('inputDescription').value;
+            siteData.background = document.getElementById('inputBackground').value;
+            saveData();
+        }
+
+        // حفظ معلومات التواصل
+        function saveContactInfo() {
+            siteData.phone = document.getElementById('inputPhone').value;
+            siteData.location = document.getElementById('inputLocation').value;
+            siteData.hours = document.getElementById('inputHours').value;
+            saveData();
+        }
+
+        // إضافة خدمة
+        function addService() {
+            const name = document.getElementById('serviceName').value;
+            const description = document.getElementById('serviceDescription').value;
+            const image = document.getElementById('serviceImage').value;
+            
+            if (name) {
+                siteData.services.push({
+                    id: Date.now(),
+                    name: name,
+                    description: description,
+                    image: image
+                });
+                saveData();
+                // مسح الحقول
+                document.getElementById('serviceName').value = '';
+                document.getElementById('serviceDescription').value = '';
+                document.getElementById('serviceImage').value = '';
+                updateServicesList();
+            }
+        }
+
+        // تحديث قائمة الخدمات
+        function updateServicesList() {
+            const list = document.getElementById('servicesList');
+            list.innerHTML = '<h4>الخدمات الحالية:</h4>';
+            
+            siteData.services.forEach((service, index) => {
+                const div = document.createElement('div');
+                div.className = 'item';
+                div.innerHTML = `
+                    <strong>${service.name}</strong>
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <button class="btn" onclick="deleteService(${index})" style="padding: 5px 10px; font-size: 12px;">🗑️ حذف</button>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        // حذف خدمة
+        function deleteService(index) {
+            if (confirm('هل أنت متأكد من حذف هذه الخدمة؟')) {
+                siteData.services.splice(index, 1);
+                saveData();
+                updateServicesList();
+            }
+        }
+
+        // إضافة عمل
+        function addWork() {
+            const title = document.getElementById('workTitle').value;
+            const description = document.getElementById('workDescription').value;
+            const image = document.getElementById('workImage').value;
+            
+            if (title) {
+                siteData.portfolio.push({
+                    id: Date.now(),
+                    title: title,
+                    description: description,
+                    image: image
+                });
+                saveData();
+                // مسح الحقول
+                document.getElementById('workTitle').value = '';
+                document.getElementById('workDescription').value = '';
+                document.getElementById('workImage').value = '';
+                updateWorksList();
+            }
+        }
+
+        // تحديث قائمة الأعمال
+        function updateWorksList() {
+            const list = document.getElementById('worksList');
+            list.innerHTML = '<h4>الأعمال الحالية:</h4>';
+            
+            siteData.portfolio.forEach((work, index) => {
+                const div = document.createElement('div');
+                div.className = 'item';
+                div.innerHTML = `
+                    <strong>${work.title}</strong>
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <button class="btn" onclick="deleteWork(${index})" style="padding: 5px 10px; font-size: 12px;">🗑️ حذف</button>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        // حذف عمل
+        function deleteWork(index) {
+            if (confirm('هل أنت متأكد من حذف هذا العمل؟')) {
+                siteData.portfolio.splice(index, 1);
+                saveData();
+                updateWorksList();
+            }
+        }
+
+        // إنشاء كود البيانات
+        function generateDataCode() {
+            document.getElementById('dataCode').value = JSON.stringify(siteData, null, 2);
+        }
+
+        // نسخ كود البيانات
+        function copyDataCode() {
+            const textarea = document.getElementById('dataCode');
+            textarea.select();
+            document.execCommand('copy');
+            showAlert('تم نسخ كود البيانات!', 'success');
+        }
+
+        // استيراد البيانات
+        function importDataCode() {
+            const code = document.getElementById('dataCode').value;
+            try {
+                const newData = JSON.parse(code);
+                siteData = newData;
+                saveData();
+                showAlert('تم استيراد البيانات بنجاح!', 'success');
+                updateWebsite();
+            } catch (e) {
+                showAlert('خطأ في كود البيانات!', 'error');
+            }
+        }
+
+        // عرض التنبيهات
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.textContent = message;
+            
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 3000);
+        }
+
+        // بدء التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+        });
+    </script>
+</body>
+</html>
