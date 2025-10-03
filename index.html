@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورشة سقف العلم للحدادة المتنقلة | تميز في الصنعة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #0d9488;
+            --accent-color: #ef4444;
+            --light-color: #f9fafb;
+            --dark-color: #1e1e1e;
+        }
+      
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+      
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f0f4f8;
+            color: var(--dark-color);
+            overflow-x: hidden;
+            position: relative;
+        }
+      
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.05) 0%, rgba(13, 148, 136, 0.05) 100%);
+            z-index: -1;
+        }
+      
+        /* تصميم متجاوب */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+      
+        /* شريط التنقل */
+        .navbar {
+            background: linear-gradient(90deg, var(--primary-color) 0%, rgba(30, 58, 138, 0.9) 100%);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+      
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+      
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+      
+        .logo img {
+            height: 60px;
+            margin-left: 10px;
+        }
+      
+        .logo h1 {
+            color: var(--light-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+      
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+      
+        .nav-links li {
+            margin: 0 10px;
+        }
+      
+        .nav-links a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+      
+        .nav-links a i {
+            margin-left: 8px;
+        }
+      
+        .nav-links a:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+      
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+      
+        /* القسم البطولي */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), var(--hero-bg) no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--light-color);
+            margin-top: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+      
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(transparent, var(--light-color));
+        }
+      
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+      
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 1s ease;
+        }
+      
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease;
+        }
+      
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 10px;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(13, 148, 136, 0.4);
+        }
+      
+        .cta-button:hover {
+            background-color: #0f766e;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+      
+        /* قسم الخدمات */
+        .services {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+      
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+      
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+      
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            border-radius: 2px;
+        }
+      
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+      
+        .service-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+      
+        .service-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+      
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+      
+        .service-card:hover::before {
+            opacity: 1;
+        }
+      
+        .service-card:hover .service-icon,
+        .service-card:hover h3,
+        .service-card:hover p {
+            color: white;
+        }
+      
+        .service-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+      
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+      
+        .service-card p {
+            color: #666;
+            transition: all 0.3s ease;
+            flex-grow: 1;
+        }
+      
+        .service-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+      
+        .service-card:hover .service-link {
+            color: white;
+        }
+      
+        /* قسم معرض الأعمال */
+        .portfolio {
+            padding: 80px 0;
+            background-color: #f0f7ff;
+        }
+      
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+      
+        .portfolio-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            height: 300px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+      
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+      
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(30, 58, 138, 0.8), rgba(13, 148, 136, 0.8));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+      
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+        }
+      
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+      
+        /* قسم التواصل */
+        .contact {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+      
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+      
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+      
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+      
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            background-color: rgba(13, 148, 136, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+      
+        .contact-text h3 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+      
+        .contact-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+      
+        .form-group {
+            margin-bottom: 20px;
+        }
+      
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+      
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+      
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
+        }
+      
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+      
+        .social-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+      
+        .social-link:hover {
+            transform: translateY(-5px);
+            background-color: var(--secondary-color);
+        }
+      
+        /* تذييل الصفحة */
+        .footer {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            padding: 60px 0 20px;
+        }
+      
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+      
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+      
+        .footer-col h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+      
+        .footer-col ul {
+            list-style: none;
+        }
+      
+        .footer-col ul li {
+            margin-bottom: 15px;
+        }
+      
+        .footer-col ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+      
+        .footer-col ul li a i {
+            margin-left: 10px;
+            color: var(--secondary-color);
+        }
+      
+        .footer-col ul li a:hover {
+            color: var(--secondary-color);
+            padding-right: 5px;
+        }
+      
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        /* صفحات الخدمات */
+        .service-page {
+            padding: 120px 0 80px;
+            background-color: var(--light-color);
+            min-height: 100vh;
+        }
+
+        .service-detail {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .service-detail h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+
+        .service-detail img {
+            width: 100%;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature {
+            background-color: rgba(13, 148, 136, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-right: 4px solid var(--secondary-color);
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* لوحة التحكم */
+        .admin-panel-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .admin-panel-btn:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        /* الرسوم المتحركة */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+      
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+      
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(13, 148, 136, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(13, 148, 136, 0);
+            }
+        }
+      
+        /* التصميم المتجاوب */
+        @media (max-width: 992px) {
+            .hero h2 {
+                font-size: 2.8rem;
+            }
+          
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+      
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+          
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background-color: var(--primary-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.5s;
+                padding: 20px 0;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+          
+            .nav-links.active {
+                right: 0;
+            }
+          
+            .nav-links li {
+                margin: 15px 0;
+            }
+          
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+          
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .service-detail {
+                padding: 20px;
+            }
+        }
+      
+        @media (max-width: 576px) {
+            .hero {
+                height: 80vh;
+            }
+          
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+          
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- زر لوحة التحكم -->
+    <div class="admin-panel-btn" onclick="openAdminPanel()">
+        <i class="fas fa-cog"></i>
+    </div>
+
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2Y4ZjVlNCI+PHBhdGggZD0iTTE4LDEyQTIuOTIsMi45MiwwLDEsMCwyMC45MiwxNSwyLjk0LDIuOTQsMCwwLDAsMTgsMTJaIi8+PHBhdGggZD0iTTE4LDcuMDhhOCw4LDAsMCwwLTgsOFYyMkgxNFYxNS4wOEE0LDQsMCwwLDEsMTgsNy4wOFoiLz48cGF0aCBkPSJNMTAsMTIuMDhhOCw4LDAsMCwwLDgsOFYyMkgxMFoiLz48L3N2Zz4=" alt="ورشة سقف العلم للحدادة">
+                <h1>ورشة سقف العلم للحدادة المتنقلة</h1>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="#"><i class="fas fa-home"></i> الرئيسية</a></li>
+                <li><a href="#services"><i class="fas fa-tools"></i> خدماتنا</a></li>
+                <li><a href="#portfolio"><i class="fas fa-images"></i> معرض الأعمال</a></li>
+                <li><a href="#contact"><i class="fas fa-phone-alt"></i> اتصل بنا</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- القسم البطولي -->
+    <section class="hero" id="hero-section">
+        <div class="hero-content">
+            <h2 id="hero-title">تميز في الصنعة، دقة في التنفيذ</h2>
+            <p id="hero-description">ورشة سقف العلم للحدادة المتنقلة تقدم حلولاً مبتكرة في أعمال الحدادة والتصميم المعدني</p>
+            <a href="#contact" class="cta-button">اطلب خدمتك الآن <i class="fas fa-arrow-left"></i></a>
+            <a href="#portfolio" class="cta-button">تصفح أعمالنا <i class="fas fa-images"></i></a>
+        </div>
+    </section>
+
+    <!-- قسم الخدمات -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>خدماتنا المتميزة</h2>
+                <p>نقدم مجموعة واسعة من خدمات الحدادة المتنقلة بجودة لا مثيل لها</p>
+            </div>
+            <div class="services-grid" id="services-container">
+                <!-- سيتم ملؤها بالبيانات من localStorage -->
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم معرض الأعمال -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>معرض أعمالنا</h2>
+                <p>إبداع في التصميم، دقة في التنفيذ</p>
+            </div>
+            <div class="portfolio-grid" id="portfolio-container">
+                <!-- سيتم ملؤها بالبيانات من localStorage -->
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التواصل -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>تواصل معنا</h2>
+                <p>نحن هنا لخدمتك في أي وقت</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>موقعنا</h3>
+                            <p id="contact-location">الخميس وجميع أنحاء المملكة</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>اتصل بنا</h3>
+                            <p id="contact-phone">+966 55 162 7128</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>البريد الإلكتروني</h3>
+                            <p id="contact-email">info@saqf-alilm.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>ساعات العمل</h3>
+                            <p id="contact-hours">السبت - الخميس: 8 صباحاً - 10 مساءً<br>الجمعة: 4 مساءً - 10 مساءً</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://wa.me/966551627128" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>أرسل لنا رسالة</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">الاسم الكامل</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">رقم الجوال</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">نوع الخدمة</label>
+                            <select id="service" class="form-control" required>
+                                <option value="">اختر الخدمة</option>
+                                <!-- سيتم ملؤها بالبيانات من localStorage -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">الرسالة</label>
+                            <textarea id="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="cta-button">إرسال الرسالة عبر واتساب <i class="fab fa-whatsapp"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تذييل الصفحة -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>عن ورشة سقف العلم</h3>
+                    <p id="footer-about">ورشة سقف العلم للحدادة المتنقلة تقدم حلولاً مبتكرة في مجال الحدادة والتصنيع المعدني، معتمدين على كوادر فنية مؤهلة ومواد عالية الجودة.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-arrow-left"></i> الرئيسية</a></li>
+                        <li><a href="#services"><i class="fas fa-arrow-left"></i> خدماتنا</a></li>
+                        <li><a href="#portfolio"><i class="fas fa-arrow-left"></i> معرض الأعمال</a></li>
+                        <li><a href="#contact"><i class="fas fa-arrow-left"></i> اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>خدماتنا</h3>
+                    <ul id="footer-services">
+                        <!-- سيتم ملؤها بالبيانات من localStorage -->
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>اشترك في النشرة البريدية</h3>
+                    <p>كن أول من يعرف عن العروض والخدمات الجديدة</p>
+                    <form class="footer-form">
+                        <div class="form-group">
+                            <input type="email" placeholder="بريدك الإلكتروني" required>
+                        </div>
+                        <button type="submit" class="cta-button">اشترك الآن</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p id="footer-copyright">جميع الحقوق محفوظة © 2023 ورشة سقف العلم للحدادة المتنقلة | الخميس، المملكة العربية السعودية</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // تحميل البيانات من localStorage وتحديث الموقع
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSiteData();
+            setupEventListeners();
+        });
+
+        // تحميل بيانات الموقع
+        function loadSiteData() {
+            const data = getSiteData();
+            
+            // تحديث القسم الرئيسي
+            document.getElementById('hero-title').textContent = data.hero.title;
+            document.getElementById('hero-description').textContent = data.hero.description;
+            document.querySelector('.hero').style.setProperty('--hero-bg', `url('${data.hero.background}')`);
+            
+            // تحديث الخدمات
+            renderServices(data.services);
+            
+            // تحديث معرض الأعمال
+            renderPortfolio(data.portfolio);
+            
+            // تحديث معلومات التواصل
+            document.getElementById('contact-phone').textContent = data.contact.phone;
+            document.getElementById('contact-email').textContent = data.contact.email;
+            document.getElementById('contact-location').textContent = data.contact.location;
+            document.getElementById('contact-hours').innerHTML = data.contact.hours.replace(/\n/g, '<br>');
+            
+            // تحديث التذييل
+            document.getElementById('footer-about').textContent = data.footer.about;
+            document.getElementById('footer-copyright').textContent = data.footer.copyright;
+            
+            // تحديث قائمة الخدمات في التذييل
+            renderFooterServices(data.services);
+            
+            // تحديث قائمة الخدمات في نموذج التواصل
+            renderServiceOptions(data.services);
+        }
+
+        // الحصول على بيانات الموقع
+        function getSiteData() {
+            const defaultData = {
+                hero: {
+                    title: "تميز في الصنعة، دقة في التنفيذ",
+                    description: "ورشة سقف العلم للحدادة المتنقلة تقدم حلولاً مبتكرة في أعمال الحدادة والتصميم المعدني",
+                    background: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                },
+                services: [
+                    {
+                        id: 1,
+                        name: "أبواب ونوافذ معدنية",
+                        description: "تصميم وتصنيع أبواب ونوافذ معدنية عالية الجودة بمواصفات أمنية فائقة وتصاميم عصرية تناسب جميع الأذواق",
+                        icon: "fas fa-door-open",
+                        image: "https://images.unsplash.com/photo-1593696140826-c58b021acf8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        features: ["أمن عالي", "تصاميم متنوعة", "مواد عالية الجودة", "تركيب متنقل"]
+                    },
+                    {
+                        id: 2,
+                        name: "أسوار ودرابزينات",
+                        description: "تصنيع وتوريد أسوار ودرابزينات فاخرة بتصاميم مبتكرة تعزز جمال المكان وتوفر الأمان والخصوصية",
+                        icon: "fas fa-grip-lines",
+                        image: "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        features: ["تصميم مخصص", "دقة في القياس", "تشطيبات متنوعة", "ضمان الجودة"]
+                    },
+                    {
+                        id: 3,
+                        name: "هياكل معدنية",
+                        description: "تنفيذ جميع أنواع الهياكل المعدنية للمصانع والمستودعات والمرافق التجارية بمعايير الجودة العالمية",
+                        icon: "fas fa-warehouse",
+                        image: "https://images.unsplash.com/photo-1593697820826-f4afab81f7de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        features: ["هياكل صناعية", "هياكل تجارية", "تصميم هندسي", "مواد متينة"]
+                    },
+                    {
+                        id: 4,
+                        name: "أثاث معدني",
+                        description: "تصميم وتصنيع أثاث معدني فريد للمنازل والمقاهي والمطاعم والمكاتب يجمع بين المتانة والجمال",
+                        icon: "fas fa-chair",
+                        image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        features: ["أثاث منزلي", "أثاث تجاري", "تصاميم عصرية", "متانة عالية"]
+                    },
+                    {
+                        id: 5,
+                        name: "تصليح وصيانة",
+                        description: "خدمات صيانة وتصليح شاملة لجميع المنتجات المعدنية مع ضمان الجودة واستخدام أفضل المواد",
+                        icon: "fas fa-hammer",
+                        image: "",
+                        features: ["صيانة وقائية", "تصليح عيوب", "استبدال قطع", "خدمة سريعة"]
+                    },
+                    {
+                        id: 6,
+                        name: "تصاميم خاصة",
+                        description: "تنفيذ تصاميم خاصة حسب طلب العميل مع تقديم استشارات فنية من قبل خبرائنا في مجال الحدادة",
+                        icon: "fas fa-lightbulb",
+                        image: "https://images.unsplash.com/photo-1605108721129-1defb7b1b7e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        features: ["تصميم مخصص", "استشارات فنية", "تنفيذ دقيق", "مرونة في التصميم"]
+                    }
+                ],
+                portfolio: [
+                    {
+                        id: 1,
+                        title: "أبواب معدنية فاخرة",
+                        description: "تصميم مميز مع تفاصيل فنية دقيقة",
+                        image: "https://images.unsplash.com/photo-1593696140826-c58b021acf8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "doors"
+                    },
+                    {
+                        id: 2,
+                        title: "درابزينات أنيقة",
+                        description: "جمع بين الجمال والمتانة والسلامة",
+                        image: "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "fences"
+                    },
+                    {
+                        id: 3,
+                        title: "أثاث معدني للمقاهي",
+                        description: "تصاميم عصرية تناسب الأماكن العامة",
+                        image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "furniture"
+                    },
+                    {
+                        id: 4,
+                        title: "أسوار مميزة",
+                        description: "حلول أمنية مع الحفاظ على الجمال المعماري",
+                        image: "https://images.unsplash.com/photo-1595435889588-9a3dae3e0ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "fences"
+                    },
+                    {
+                        id: 5,
+                        title: "هياكل معدنية صناعية",
+                        description: "تنفيذ بدقة هندسية عالية",
+                        image: "https://images.unsplash.com/photo-1593697820826-f4afab81f7de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "structures"
+                    },
+                    {
+                        id: 6,
+                        title: "تصاميم خاصة",
+                        description: "تحويل أفكارك إلى واقع ملموس",
+                        image: "https://images.unsplash.com/photo-1605108721129-1defb7b1b7e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "custom"
+                    }
+                ],
+                contact: {
+                    phone: "+966 55 162 7128",
+                    email: "info@saqf-alilm.com",
+                    location: "الخميس وجميع أنحاء المملكة",
+                    hours: "السبت - الخميس: 8 صباحاً - 10 مساءً\nالجمعة: 4 مساءً - 10 مساءً"
+                },
+                footer: {
+                    about: "ورشة سقف العلم للحدادة المتنقلة تقدم حلولاً مبتكرة في مجال الحدادة والتصنيع المعدني، معتمدين على كوادر فنية مؤهلة ومواد عالية الجودة.",
+                    copyright: "جميع الحقوق محفوظة © 2023 ورشة سقف العلم للحدادة المتنقلة | الخميس، المملكة العربية السعودية"
+                }
+            };
+            
+            try {
+                const storedData = localStorage.getItem('saqfAlilmData');
+                if (storedData) {
+                    const parsedData = JSON.parse(storedData);
+                    return parsedData;
+                }
+            } catch (error) {
+                console.error('خطأ في تحميل البيانات:', error);
+            }
+            
+            return defaultData;
+        }
+
+        // عرض الخدمات
+        function renderServices(services) {
+            const container = document.getElementById('services-container');
+            container.innerHTML = '';
+            
+            services.forEach(service => {
+                const serviceCard = document.createElement('div');
+                serviceCard.className = 'service-card';
+                serviceCard.onclick = () => showServiceDetail(service.id);
+                
+                serviceCard.innerHTML = `
+                    <div class="service-icon">
+                        <i class="${service.icon}"></i>
+                    </div>
+                    <h3>${service.name}</h3>
+                    <p>${service.description}</p>
+                    <a class="service-link">تفاصيل الخدمة <i class="fas fa-arrow-left"></i></a>
+                `;
+                
+                container.appendChild(serviceCard);
+            });
+        }
+
+        // عرض معرض الأعمال
+        function renderPortfolio(portfolio) {
+            const container = document.getElementById('portfolio-container');
+            container.innerHTML = '';
+            
+            portfolio.forEach(item => {
+                const portfolioItem = document.createElement('div');
+                portfolioItem.className = 'portfolio-item';
+                
+                portfolioItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjh                    fill="#f0f0f0"/><text x="50%" y="50%" font-family="Arial" font-size="18" text-anchor="middle" dy=".3em" fill="#999">صورة غير متوفرة</text></svg>'">
+                    <div class="portfolio-overlay">
+                        <h3>${item.title}</h3>
+                        <p>${item.description}</p>
+                    </div>
+                `;
+                
+                container.appendChild(portfolioItem);
+            });
+        }
+
+        // عرض الخدمات في التذييل
+        function renderFooterServices(services) {
+            const container = document.getElementById('footer-services');
+            container.innerHTML = '';
+            
+            services.forEach(service => {
+                const li = document.createElement('li');
+                li.innerHTML = `<a href="javascript:void(0)" onclick="showServiceDetail(${service.id})"><i class="fas fa-arrow-left"></i> ${service.name}</a>`;
+                container.appendChild(li);
+            });
+        }
+
+        // عرض خيارات الخدمات في نموذج التواصل
+        function renderServiceOptions(services) {
+            const select = document.getElementById('service');
+            select.innerHTML = '<option value="">اختر الخدمة</option>';
+            
+            services.forEach(service => {
+                const option = document.createElement('option');
+                option.value = service.name;
+                option.textContent = service.name;
+                select.appendChild(option);
+            });
+        }
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // القائمة المتنقلة
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                mobileMenuBtn.querySelector('i').classList.toggle('fa-bars');
+                mobileMenuBtn.querySelector('i').classList.toggle('fa-times');
+            });
+            
+            // إغلاق القائمة عند النقر على رابط
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                });
+            });
+            
+            // نموذج التواصل
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const service = document.getElementById('service').value;
+                const message = document.getElementById('message').value;
+                
+                const whatsappMessage =
+                    `مرحباً، أنا ${name}%0A` +
+                    `رقم هاتفي: ${phone}%0A` +
+                    `الخدمة المطلوبة: ${service}%0A%0A` +
+                    `رسالتي:%0A${message}`;
+                
+                const whatsappLink = `https://wa.me/966551627128?text=${whatsappMessage}`;
+                window.open(whatsappLink, '_blank');
+                
+                // حفظ طلب التواصل
+                saveContactRequest({ name, phone, service, message, date: new Date().toLocaleString('ar-SA') });
+                
+                alert('سيتم فتح تطبيق واتساب لإرسال رسالتك. شكراً لتواصلك معنا!');
+                contactForm.reset();
+            });
+            
+            // التمرير السلس
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // تحديث تلقائي عند تغيير البيانات
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'saqfAlilmData') {
+                    loadSiteData();
+                }
+            });
+
+            // تحديث عند العودة للصفحة
+            window.addEventListener('focus', function() {
+                loadSiteData();
+            });
+        }
+
+        // حفظ طلب التواصل
+        function saveContactRequest(contactData) {
+            const data = getSiteData();
+            if (!data.contacts) {
+                data.contacts = [];
+            }
+            contactData.id = data.contacts.length > 0 ? Math.max(...data.contacts.map(c => c.id)) + 1 : 1;
+            data.contacts.push(contactData);
+            
+            try {
+                localStorage.setItem('saqfAlilmData', JSON.stringify(data));
+                console.log('تم حفظ طلب التواصل');
+            } catch (error) {
+                console.error('خطأ في حفظ طلب التواصل:', error);
+            }
+        }
+
+        // فتح لوحة التحكم
+        function openAdminPanel() {
+            const adminWindow = window.open('admin.html', '_blank', 'width=1200,height=700,scrollbars=yes');
+            
+            // إضافة مستمع لتحديث البيانات عند إغلاق نافذة الإدارة
+            if (adminWindow) {
+                const checkWindow = setInterval(() => {
+                    if (adminWindow.closed) {
+                        clearInterval(checkWindow);
+                        loadSiteData(); // تحديث البيانات عند إغلاق نافذة الإدارة
+                    }
+                }, 500);
+            }
+        }
+
+        // عرض تفاصيل الخدمة
+        function showServiceDetail(serviceId) {
+            const data = getSiteData();
+            const service = data.services.find(s => s.id === serviceId);
+            
+            if (service) {
+                // إخفاء جميع الأقسام
+                document.querySelectorAll('section, footer').forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                // إخفاء زر الإدارة مؤقتاً
+                document.querySelector('.admin-panel-btn').style.display = 'none';
+                
+                // إنشاء قسم تفاصيل الخدمة
+                const serviceDetailSection = document.createElement('section');
+                serviceDetailSection.className = 'service-page';
+                serviceDetailSection.innerHTML = `
+                    <div class="container">
+                        <div class="service-detail">
+                            <h2>${service.name}</h2>
+                            ${service.image ? `<img src="${service.image}" alt="${service.name}" onerror="this.style.display='none'">` : ''}
+                            <p>${service.description}</p>
+                           
+                            ${service.features && service.features.length > 0 ? `
+                            <div class="service-features">
+                                <h3>مميزات الخدمة:</h3>
+                                ${service.features.map(feature => `
+                                    <div class="feature">
+                                        <h4><i class="fas fa-check"></i> ${feature}</h4>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            ` : ''}
+                           
+                            <div style="margin-top: 30px; text-align: center;">
+                                <a href="#contact" class="cta-button" onclick="closeServiceDetailAndScrollToContact()">
+                                    اطلب هذه الخدمة الآن <i class="fas fa-arrow-left"></i>
+                                </a>
+                                <a href="javascript:void(0)" onclick="closeServiceDetail()" class="back-button">
+                                    العودة إلى الرئيسية <i class="fas fa-home"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(serviceDetailSection);
+                
+                // إضافة شريط تنقل مصغر
+                const miniNav = document.createElement('nav');
+                miniNav.className = 'navbar';
+                miniNav.style.position = 'fixed';
+                miniNav.style.top = '0';
+                miniNav.innerHTML = `
+                    <div class="container nav-container">
+                        <div class="logo">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2Y4ZjVlNCI+PHBhdGggZD0iTTE4LDEyQTIuOTIsMi45MiwwLDEsMCwyMC45MiwxNSwyLjk0LDIuOTQsMCwwLDAsMTgsMTJaIi8+PHBhdGggZD0iTTE4LDcuMDhhOCw4LDAsMCwwLTgsOFYyMkgxNFYxNS4wOEE0LDQsMCwwLDEsMTgsNy4wOFoiLz48cGF0aCBkPSJNMTAsMTIuMDhhOCw4LDAsMCwwLDgsOFYyMkgxMFoiLz48L3N2Zz4=" alt="ورشة سقف العلم للحدادة">
+                            <h1 style="font-size: 1.2rem;">${service.name}</h1>
+                        </div>
+                        <button class="mobile-menu-btn" onclick="closeServiceDetail()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                document.body.insertBefore(miniNav, document.body.firstChild);
+            }
+        }
+
+        // إغلاق تفاصيل الخدمة والعودة للاتصال
+        function closeServiceDetailAndScrollToContact() {
+            closeServiceDetail();
+            setTimeout(() => {
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                    window.scrollTo({
+                        top: contactSection.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 100);
+        }
+
+        // إغلاق تفاصيل الخدمة
+        function closeServiceDetail() {
+            // إزالة قسم تفاصيل الخدمة
+            const serviceDetailSection = document.querySelector('.service-page');
+            if (serviceDetailSection) {
+                serviceDetailSection.remove();
+            }
+            
+            // إزالة شريط التنقل المصغر
+            const miniNav = document.querySelector('.navbar[style]');
+            if (miniNav) {
+                miniNav.remove();
+            }
+            
+            // إظهار جميع الأقسام الأصلية
+            document.querySelectorAll('section, footer').forEach(el => {
+                el.style.display = '';
+            });
+            
+            // إظهار زر الإدارة
+            document.querySelector('.admin-panel-btn').style.display = 'flex';
+            
+            // إعادة تحميل البيانات للتأكد من التحديثات
+            loadSiteData();
+        }
+
+        // تحميل البيانات عند فتح الصفحة
+        window.addEventListener('load', function() {
+            loadSiteData();
+            
+            // التحقق من وجود بيانات جديدة كل 5 ثوانٍ (للتحديثات من لوحة التحكم)
+            setInterval(() => {
+                loadSiteData();
+            }, 5000);
+        });
+
+        // تحديث الصور المعطوبة
+        function handleImageError(img) {
+            img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjBmMGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iIGZpbGw9IiM5OTkiPnN1cmF0IGdoYXlyIG1vdGF3YWppZGFoPC90ZXh0Pjwvc3ZnPg==';
+            img.alt = 'صورة غير متوفرة';
+        }
+    </script>
+</body>
+</html>

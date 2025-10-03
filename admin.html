@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم ورشة سقف العلم</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #0d9488;
+            --accent-color: #ef4444;
+            --light-color: #f9fafb;
+            --dark-color: #1e1e1e;
+            --sidebar-width: 250px;
+            --header-height: 70px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f0f4f8;
+            color: var(--dark-color);
+            overflow-x: hidden;
+        }
+
+        /* تصميم لوحة التحكم */
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* الشريط الجانبي */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary-color) 0%, rgba(30, 58, 138, 0.9) 100%);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-header h2 i {
+            margin-left: 10px;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border-right: 3px solid transparent;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-right-color: var(--secondary-color);
+        }
+
+        .menu-item i {
+            margin-left: 10px;
+            font-size: 1.2rem;
+            width: 25px;
+            text-align: center;
+        }
+
+        /* المحتوى الرئيسي */
+        .main-content {
+            flex: 1;
+            margin-right: var(--sidebar-width);
+            transition: var(--transition);
+        }
+
+        .header {
+            height: var(--header-height);
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-sidebar {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-left: 10px;
+        }
+
+        .btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn i {
+            margin-left: 8px;
+        }
+
+        .btn:hover {
+            background-color: #0f766e;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background-color: var(--accent-color);
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        /* نماذج الإدخال */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* الشبكات */
+        .grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        /* البطاقات */
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-left: 15px;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .card-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* الجداول */
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: right;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .table tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+            width: 35px;
+            height: 35px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .edit-btn {
+            color: var(--secondary-color);
+            background-color: rgba(13, 148, 136, 0.1);
+        }
+
+        .delete-btn {
+            color: var(--accent-color);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* التنبيهات */
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .alert-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #065f46;
+            border-right: 4px solid #10b981;
+        }
+
+        .alert-error {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: #7f1d1d;
+            border-right: 4px solid var(--accent-color);
+        }
+
+        .alert i {
+            margin-left: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* رفع الصور */
+        .image-upload {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .image-preview {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .upload-btn:hover {
+            background-color: #1e40af;
+        }
+
+        .upload-btn i {
+            margin-left: 8px;
+        }
+
+        .image-upload input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* التصميم المتجاوب */
+        @media (max-width: 992px) {
+            .sidebar {
+                right: -100%;
+            }
+
+            .sidebar.active {
+                right: 0;
+            }
+
+            .main-content {
+                margin-right: 0;
+            }
+
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                display: none;
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 15px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- لوحة التحكم -->
+    <div class="dashboard">
+        <!-- الشريط الجانبي -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-tools"></i> سقف العلم</h2>
+            </div>
+            <div class="sidebar-menu">
+                <div class="menu-item active" data-section="dashboard-home">
+                    <i class="fas fa-home"></i>
+                    <span>لوحة التحكم</span>
+                </div>
+                <div class="menu-item" data-section="hero-section">
+                    <i class="fas fa-desktop"></i>
+                    <span>القسم الرئيسي</span>
+                </div>
+                <div class="menu-item" data-section="services-section">
+                    <i class="fas fa-tools"></i>
+                    <span>الخدمات</span>
+                </div>
+                <div class="menu-item" data-section="portfolio-section">
+                    <i class="fas fa-images"></i>
+                    <span>معرض الأعمال</span>
+                </div>
+                <div class="menu-item" data-section="contact-section">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>معلومات التواصل</span>
+                </div>
+                <div class="menu-item" data-section="footer-section">
+                    <i class="fas fa-info-circle"></i>
+                    <span>التذييل</span>
+                </div>
+                <div class="menu-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>تسجيل الخروج</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <div class="header">
+                <div class="header-left">
+                    <button class="toggle-sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h3>لوحة تحكم ورشة سقف العلم</h3>
+                </div>
+                <div class="header-right">
+                    <span id="currentDate"></span>
+                </div>
+            </div>
+
+            <div class="content">
+                <!-- قسم لوحة التحكم الرئيسية -->
+                <div id="dashboard-home" class="section-content">
+                    <div class="section">
+                        <div class="section-header">
+                            <h3 class="section-title"><i class="fas fa-tachometer-alt"></i> نظرة عامة</h3>
+                        </div>
+                        <div class="grid grid-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-icon" style="background-color: var(--primary-color);">
+                                        <i class="fas fa-tools"></i>
+                                    </div>
+                                    <div>
+                                        <div class="card-title">الخدمات</div>
+                                        <div class="card-value" id="servicesCount">6</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-icon" style="background-color: var(--secondary-color);">
+                                        <i class="fas fa-images"></i>
+                                    </div>
+                                    <div>
+                                        <div class="card-title">أعمال المعرض</div>
+                                        <div class="card-value" id="portfolioCount">6</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-icon" style="background-color: var(--accent-color);">
+                                        <i class="fas fa-phone-alt"></i>
+                                    </div>
+                                    <div>
+                                        <div class="card-title">طلبات التواصل</div>
+                                        <div class="card-value" id="contactsCount">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-header">
+                            <h3 class="section-title"><i class="fas fa-cogs"></i> الإجراءات السريعة</h3>
+                        </div>
+                        <div class="grid grid-2">
+                            <div class="card">
+                                <h4>تصدير البيانات</h4>
+                                <p>تصدير جميع بيانات الموقع إلى ملف JSON</p>
+                                <button class="btn" id="exportData">
+                                    <i class="fas fa-download"></i> تصدير البيانات
+                                </button>
+                            </div>
+                            <div class="card">
+                                <h4>استيراد البيانات</h4>
+                                <p>استيراد بيانات الموقع من ملف JSON</p>
+                                <input type="file" id="importFile" accept=".json" style="display: none;">
+                                <button class="btn" id="importData">
+                                    <i class="fas fa-upload"></i> استيراد البيانات
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- قسم القسم الرئيسي -->
+                <div id="hero-section" class="section-content" style="display: none;">
+                    <div class="section">
+                        <div class="section-header">
+                            <h3 class="section-title"><i class="fas fa-desktop"></i> تحرير القسم الرئيسي</h3>
+                        </div>
+                        <form id="heroForm">
+                            <div class="form-group">
+                                <label for="heroTitle">عنوان القسم الرئيسي</label>
+                                <input type="text" id="heroTitle" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="heroDescription">وصف القسم الرئيسي</label>
+                                <textarea id="heroDescription" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="heroBackground">صورة الخلفية</label>
+                                <div class="image-upload">
+                                    <div class="image-preview" id="heroBackgroundPreview">
+                                        <span>لم يتم اختيار صورة</span>
+                                    </div>
+                                    <div class="upload-btn">
+                                        <i class="fas fa-upload"></i> اختر صورة
+                                        <input type="file" id="heroBackground" accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn">
+                                <i class="fas fa-save"></i> حفظ التغييرات
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- قسم الخدمات -->
+                <div id="services-section" class="section-content" style="display: none;">
+                    <div class="section">
+                        <div class="section-header">
+                            <h3 class="section-title"><i class="fas fa-tools"></i> إدارة الخدمات</h3>
+                            <button class="btn" id="addServiceBtn">
+                                <i class="fas fa-plus"></i> إضافة خدمة جديدة
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>اسم الخدمة</th>
+                                        <th>الوصف</th>
+                                        <th>الأيقونة</th>
+                                        <th>الإجراءات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="servicesTableBody">
+                                    <!-- سيتم ملؤها بالبيانات -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- قسم معرض الأعمال -->
+                <div id="portfolio-section" class="section-content" style="display: none;">
+                    <div class="section">
+                        <div class="section-header">
+                            <h3 class="section-title"><i class="fas fa-images"></i> إدارة معرض الأعمال</h3>
+                            <button class="btn" id="addPortfolioBtn">
+                                <i class="fas fa-plus"></i> إضافة عمل جديد
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>العنوان</th>
+                                        <th>الوصف</th>
+                                        <th>الصورة</th>
+                                        <th>الإجراءات</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="portfolioTableBody">
+                                    <!-- سيتم ملؤها بالبيانات -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- قسم معلومات التواصل -->
+                <div id="contact-section" class="section-content" style="display: none;">
+                    <div class="section">
+                        <div class="section-header">
+                            <h3 class="section-title"><i class="fas fa-phone-alt"></i> معلومات التواصل</h3>
+                        </div>
+                        <form id="contactInfoForm">
+                            <div class="grid grid-2">
+                                <div class="form-group">
+                                    <label for="contactPhone">رقم الهاتف</label>
+                                    <input type="text" id="contactPhone" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactEmail">البريد الإلكتروني</label>
+                                    <input type="email" id="contactEmail" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactLocation">الموقع</label>
+                                    <input type="text" id="contactLocation" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactHours">ساعات العمل</label>
+                                    <textarea id="contactHours" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn">
+                                <i class="fas fa-save"></i> حفظ التغييرات
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- قسم التذييل -->
+                <div id="footer-section" class="section-content" style="display: none;">
+                    <div class="section">
+                        <div class="section-header">
+                            <h3 class="section-title"><i class="fas fa-info-circle"></i> تحرير التذييل</h3>
+                        </div>
+                        <form id="footerForm">
+                            <div class="form-group">
+                                <label for="footerAbout">نبذة عن الورشة</label>
+                                <textarea id="footerAbout" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="footerCopyright">نص حقوق النشر</label>
+                                <input type="text" id="footerCopyright" class="form-control">
+                            </div>
+                            <button type="submit" class="btn">
+                                <i class="fas fa-save"></i> حفظ التغييرات
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- طبقة الشفافية للشريط الجانبي في الجوال -->
+        <div class="sidebar-overlay"></div>
+    </div>
+
+    <!-- نموذج إضافة/تحرير الخدمة -->
+    <div id="serviceModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+        <div class="section" style="max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto;">
+            <div class="section-header">
+                <h3 class="section-title" id="serviceModalTitle">إضافة خدمة جديدة</h3>
+                <button class="action-btn delete-btn" id="closeServiceModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="serviceForm">
+                <input type="hidden" id="serviceId">
+                <div class="form-group">
+                    <label for="serviceName">اسم الخدمة</label>
+                    <input type="text" id="serviceName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="serviceDescription">وصف الخدمة</label>
+                    <textarea id="serviceDescription" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="serviceIcon">أيقونة الخدمة (اسم أيقونة FontAwesome)</label>
+                    <input type="text" id="serviceIcon" class="form-control" placeholder="مثال: fas fa-door-open" required>
+                </div>
+                <div class="form-group">
+                    <label for="serviceImage">صورة الخدمة</label>
+                    <div class="image-upload">
+                        <div class="image-preview" id="serviceImagePreview">
+                            <span>لم يتم اختيار صورة</span>
+                        </div>
+                        <div class="upload-btn">
+                            <i class="fas fa-upload"></i> اختر صورة
+                            <input type="file" id="serviceImage" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="serviceFeatures">مميزات الخدمة (افصل بينها بفاصلة)</label>
+                    <textarea id="serviceFeatures" class="form-control" placeholder="ميزة 1, ميزة 2, ميزة 3"></textarea>
+                </div>
+                <button type="submit" class="btn">
+                    <i class="fas fa-save"></i> حفظ الخدمة
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- نموذج إضافة/تحرير معرض الأعمال -->
+    <div id="portfolioModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+        <div class="section" style="max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto;">
+            <div class="section-header">
+                <h3 class="section-title" id="portfolioModalTitle">إضافة عمل جديد</h3>
+                <button class="action-btn delete-btn" id="closePortfolioModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="portfolioForm">
+                <input type="hidden" id="portfolioId">
+                <div class="form-group">
+                    <label for="portfolioTitle">عنوان العمل</label>
+                    <input type="text" id="portfolioTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="portfolioDescription">وصف العمل</label>
+                    <textarea id="portfolioDescription" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="portfolioImage">صورة العمل</label>
+                    <div class="image-upload">
+                        <div class="image-preview" id="portfolioImagePreview">
+                            <span>لم يتم اختيار صورة</span>
+                        </div>
+                        <div class="upload-btn">
+                            <i class="fas fa-upload"></i> اختر صورة
+                            <input type="file" id="portfolioImage" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="portfolioCategory">تصنيف العمل</label>
+                    <select id="portfolioCategory" class="form-control" required>
+                        <option value="doors">أبواب ونوافذ</option>
+                        <option value="fences">أسوار ودرابزينات</option>
+                        <option value="structures">هياكل معدنية</option>
+                        <option value="furniture">أثاث معدني</option>
+                        <option value="custom">تصاميم خاصة</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">
+                    <i class="fas fa-save"></i> حفظ العمل
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // بيانات الاعتماد لتسجيل الدخول
+        const adminCredentials = {
+            username: "admin",
+            password: "saqfalilm2023"
+        };
+
+        // تهيئة التطبيق
+        document.addEventListener('DOMContentLoaded', function() {
+            // التحقق من تسجيل الدخول
+            checkLogin();
+            
+            // تحديث التاريخ الحالي
+            updateCurrentDate();
+            
+            // إعداد مستمعي الأحداث
+            setupEventListeners();
+            
+            // تحميل البيانات في النماذج
+            loadDataToForms();
+            
+            // تحديث الإحصائيات
+            updateStatistics();
+            
+            // عرض القسم النشط
+            showSection('dashboard-home');
+        });
+
+        // التحقق من تسجيل الدخول
+        function checkLogin() {
+            const isLoggedIn = sessionStorage.getItem('saqfAlilmLoggedIn');
+            if (!isLoggedIn) {
+                const username = prompt('اسم المستخدم:');
+                const password = prompt('كلمة المرور:');
+                
+                if (username === adminCredentials.username && password === adminCredentials.password) {
+                    sessionStorage.setItem('saqfAlilmLoggedIn', 'true');
+                } else {
+                    alert('بيانات الدخول غير صحيحة!');
+                    window.close();
+                }
+            }
+        }
+
+        // تحديث التاريخ الحالي
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateString = now.toLocaleDateString('ar-SA', options);
+            document.getElementById('currentDate').textContent = dateString;
+        }
+
+        // الحصول على بيانات الموقع
+        function getSiteData() {
+            const defaultData = {
+                hero: {
+                    title: "تميز في الصنعة، دقة في التنفيذ",
+                    description: "ورشة سقف العلم للحدادة المتنقلة تقدم حلولاً مبتكرة في أعمال الحدادة والتصميم المعدني",
+                    background: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                },
+                services: [
+                    {
+                        id: 1,
+                        name: "أبواب ونوافذ معدنية",
+                        description: "تصميم وتصنيع أبواب ونوافذ معدنية عالية الجودة بمواصفات أمنية فائقة وتصاميم عصرية تناسب جميع الأذواق",
+                        icon: "fas fa-door-open",
+                        image: "https://images.unsplash.com/photo-1593696140826-c58b021acf8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        features: ["أمن عالي", "تصاميم متنوعة", "مواد عالية الجودة", "تركيب متنقل"]
+                    },
+                    {
+                        id: 2,
+                        name: "أسوار ودرابزينات",
+                        description: "تصنيع وتوريد أسوار ودرابزينات فاخرة بتصاميم مبتكرة تعزز جمال المكان وتوفر الأمان والخصوصية",
+                        icon: "fas fa-grip-lines",
+                        image: "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        features: ["تصميم مخصص", "دقة في القياس", "تشطيبات متنوعة", "ضمان الجودة"]
+                    },
+                    {
+                        id: 3,
+                        name: "هياكل معدنية",
+                        description: "تنفيذ جميع أنواع الهياكل المعدنية للمصانع والمستودعات والمرافق التجارية بمعايير الجودة العالمية",
+                        icon: "fas fa-warehouse",
+                        image: "https://images.unsplash.com/photo-1593697820826-f4afab81f7de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        features: ["هياكل صناعية", "هياكل تجارية", "تصميم هندسي", "مواد متينة"]
+                    },
+                    {
+                        id: 4,
+                        name: "أثاث معدني",
+                        description: "تصميم وتصنيع أثاث معدني فريد للمنازل والمقاهي والمطاعم والمكاتب يجمع بين المتانة والجمال",
+                        icon: "fas fa-chair",
+                        image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        features: ["أثاث منزلي", "أثاث تجاري", "تصاميم عصرية", "متانة عالية"]
+                    },
+                    {
+                        id: 5,
+                        name: "تصليح وصيانة",
+                        description: "خدمات صيانة وتصليح شاملة لجميع المنتجات المعدنية مع ضمان الجودة واستخدام أفضل المواد",
+                        icon: "fas fa-hammer",
+                        image: "",
+                        features: ["صيانة وقائية", "تصليح عيوب", "استبدال قطع", "خدمة سريعة"]
+                    },
+                    {
+                        id: 6,
+                        name: "تصاميم خاصة",
+                        description: "تنفيذ تصاميم خاصة حسب طلب العميل مع تقديم استشارات فنية من قبل خبرائنا في مجال الحدادة",
+                        icon: "fas fa-lightbulb",
+                        image: "https://images.unsplash.com/photo-1605108721129-1defb7b1b7e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        features: ["تصميم مخصص", "استشارات فنية", "تنفيذ دقيق", "مرونة في التصميم"]
+                    }
+                ],
+                portfolio: [
+                    {
+                        id: 1,
+                        title: "أبواب معدنية فاخرة",
+                        description: "تصميم مميز مع تفاصيل فنية دقيقة",
+                        image: "https://images.unsplash.com/photo-1593696140826-c58b021acf8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "doors"
+                    },
+                    {
+                        id: 2,
+                        title: "درابزينات أنيقة",
+                        description: "جمع بين الجمال والمتانة والسلامة",
+                        image: "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "fences"
+                    },
+                    {
+                        id: 3,
+                        title: "أثاث معدني للمقاهي",
+                        description: "تصاميم عصرية تناسب الأماكن العامة",
+                        image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "furniture"
+                    },
+                    {
+                        id: 4,
+                        title: "أسوار مميزة",
+                        description: "حلول أمنية مع الحفاظ على الجمال المعماري",
+                        image: "https://images.unsplash.com/photo-1595435889588-9a3dae3e0ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "fences"
+                    },
+                    {
+                        id: 5,
+                        title: "هياكل معدنية صناعية",
+                        description: "تنفيذ بدقة هندسية عالية",
+                        image: "https://images.unsplash.com/photo-1593697820826-f4afab81f7de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "structures"
+                    },
+                    {
+                        id: 6,
+                        title: "تصاميم خاصة",
+                        description: "تحويل أفكارك إلى واقع ملموس",
+                        image: "https://images.unsplash.com/photo-1605108721129-1defb7b1b7e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+                        category: "custom"
+                    }
+                ],
+                contact: {
+                    phone: "+966 55 162 7128",
+                    email: "info@saqf-alilm.com",
+                    location: "الخميس وجميع أنحاء المملكة",
+                    hours: "السبت - الخميس: 8 صباحاً - 10 مساءً\nالجمعة: 4 مساءً - 10 مساءً"
+                },
+                footer: {
+                    about: "ورشة سقف العلم للحدادة المتنقلة تقدم حلولاً مبتكرة في مجال الحدادة والتصنيع المعدني، معتمدين على كوادر فنية مؤهلة ومواد عالية الجودة.",
+                    copyright: "جميع الحقوق محفوظة © 2023 ورشة سقف العلم للحدادة المتنقلة | الخميس، المملكة العربية السعودية"
+                },
+                contacts: []
+            };
+            
+            try {
+                const storedData = localStorage.getItem('saqfAlilmData');
+                if (storedData) {
+                    const parsedData = JSON.parse(storedData);
+                    return validateData(parsedData);
+                }
+            } catch (error) {
+                console.error('خطأ في تحميل البيانات المحفوظة:', error);
+            }
+            
+            return defaultData;
+        }
+
+        // حفظ بيانات الموقع
+        function saveSiteData(data) {
+            try {
+                // تنظيف البيانات قبل الحفظ (إزالة أي قيم غير صالحة)
+                const cleanData = JSON.parse(JSON.stringify(data));
+                localStorage.setItem('saqfAlilmData', JSON.stringify(cleanData));
+                
+                // تحديث الموقع الرئيسي إذا كان مفتوحاً
+                if (window.opener && !window.opener.closed) {
+                    try {
+                        window.opener.location.reload();
+                    } catch (e) {
+                        console.log('لا يمكن تحديث النافذة الرئيسية');
+                    }
+                }
+                
+                console.log('تم حفظ البيانات بنجاح في localStorage');
+            } catch (error) {
+                console.error('خطأ في حفظ البيانات:', error);
+                showAlert('حدث خطأ في حفظ البيانات!', 'error');
+            }
+        }
+
+        // إضافة دالة للتحقق من جودة البيانات
+        function validateData(data) {
+            if (!data.hero) data.hero = {};
+            if (!data.services) data.services = [];
+            if (!data.portfolio) data.portfolio = [];
+            if (!data.contact) data.contact = {};
+            if (!data.footer) data.footer = {};
+            if (!data.contacts) data.contacts = [];
+            
+            return data;
+        }
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // تسجيل الخروج
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+            
+            // تبديل الشريط الجانبي
+            document.querySelector('.toggle-sidebar').addEventListener('click', toggleSidebar);
+            document.querySelector('.sidebar-overlay').addEventListener('click', toggleSidebar);
+            
+            // التنقل بين الأقسام
+            document.querySelectorAll('.menu-item').forEach(item => {
+                if (item.id !== 'logoutBtn') {
+                    item.addEventListener('click', function() {
+                        const section = this.getAttribute('data-section');
+                        showSection(section);
+                        
+                        // تحديث العنصر النشط في القائمة
+                        document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+                        this.classList.add('active');
+                    });
+                }
+            });
+            
+            // نماذج التحرير
+            document.getElementById('heroForm').addEventListener('submit', saveHeroData);
+            document.getElementById('contactInfoForm').addEventListener('submit', saveContactData);
+            document.getElementById('footerForm').addEventListener('submit', saveFooterData);
+            
+            // إدارة الخدمات
+            document.getElementById('addServiceBtn').addEventListener('click', openServiceModal);
+            document.getElementById('serviceForm').addEventListener('submit', saveService);
+            document.getElementById('closeServiceModal').addEventListener('click', closeServiceModal);
+            
+            // إدارة معرض الأعمال
+            document.getElementById('addPortfolioBtn').addEventListener('click', openPortfolioModal);
+            document.getElementById('portfolioForm').addEventListener('submit', savePortfolio);
+            document.getElementById('closePortfolioModal').addEventListener('click', closePortfolioModal);
+            
+            // تصدير واستيراد البيانات
+            document.getElementById('exportData').addEventListener('click', exportData);
+            document.getElementById('importData').addEventListener('click', triggerImport);
+            document.getElementById('importFile').addEventListener('change', importData);
+            
+            // معالجة رفع الصور
+            setupImageUploads();
+        }
+
+        // تسجيل الخروج
+        function handleLogout() {
+            sessionStorage.removeItem('saqfAlilmLoggedIn');
+            window.close();
+        }
+
+        // تبديل الشريط الجانبي
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.sidebar-overlay').classList.toggle('active');
+        }
+
+        // عرض القسم المحدد
+        function showSection(sectionId) {
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        // تحميل البيانات في النماذج
+        function loadDataToForms() {
+            const data = getSiteData();
+            
+            // قسم البطل
+            document.getElementById('heroTitle').value = data.hero.title;
+            document.getElementById('heroDescription').value = data.hero.description;
+            updateImagePreview('heroBackgroundPreview', data.hero.background);
+            
+            // معلومات التواصل
+            document.getElementById('contactPhone').value = data.contact.phone;
+            document.getElementById('contactEmail').value = data.contact.email;
+            document.getElementById('contactLocation').value = data.contact.location;
+            document.getElementById('contactHours').value = data.contact.hours;
+            
+            // التذييل
+            document.getElementById('footerAbout').value = data.footer.about;
+            document.getElementById('footerCopyright').value = data.footer.copyright;
+            
+            // تحديث جداول الخدمات والأعمال
+            updateServicesTable();
+            updatePortfolioTable();
+        }
+
+        // تحديث جدول الخدمات
+        function updateServicesTable() {
+            const data = getSiteData();
+            const tbody = document.getElementById('servicesTableBody');
+            tbody.innerHTML = '';
+            
+            data.services.forEach((service, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${service.name}</td>
+                    <td>${service.description.substring(0, 50)}...</td>
+                    <td><i class="${service.icon}"></i></td>
+                    <td class="actions">
+                        <button class="action-btn edit-btn" onclick="editService(${service.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deleteService(${service.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // تحديث جدول معرض الأعمال
+        function updatePortfolioTable() {
+            const data = getSiteData();
+            const tbody = document.getElementById('portfolioTableBody');
+            tbody.innerHTML = '';
+            
+            data.portfolio.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${item.title}</td>
+                    <td>${item.description.substring(0, 50)}...</td>
+                    <td><img src="${item.image}" alt="${item.title}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;"></td>
+                    <td class="actions">
+                        <button class="action-btn edit-btn" onclick="editPortfolio(${item.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete-btn" onclick="deletePortfolio(${item.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // تحديث الإحصائيات
+        function updateStatistics() {
+            const data = getSiteData();
+            document.getElementById('servicesCount').textContent = data.services.length;
+            document.getElementById('portfolioCount').textContent = data.portfolio.length;
+            document.getElementById('contactsCount').textContent = data.contacts.length;
+        }
+
+        // إعداد رفع الصور
+        function setupImageUploads() {
+            // صورة الخلفية للقسم الرئيسي
+            document.getElementById('heroBackground').addEventListener('change', function(e) {
+                handleImageUpload(e, 'heroBackgroundPreview');
+            });
+            
+            // صورة الخدمة
+            document.getElementById('serviceImage').addEventListener('change', function(e) {
+                handleImageUpload(e, 'serviceImagePreview');
+            });
+            
+            // صورة معرض الأعمال
+            document.getElementById('portfolioImage').addEventListener('change', function(e) {
+                handleImageUpload(e, 'portfolioImagePreview');
+            });
+        }
+
+        // معالجة رفع الصور
+        function handleImageUpload(event, previewId) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    updateImagePreview(previewId, e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // تحديث معاينة الصورة
+        function updateImagePreview(previewId, imageUrl) {
+            const preview = document.getElementById(previewId);
+            if (imageUrl) {
+                preview.innerHTML = `<img src="${imageUrl}" alt="معاينة الصورة">`;
+            } else {
+                preview.innerHTML = '<span>لم يتم اختيار صورة</span>';
+            }
+        }
+
+        // حفظ بيانات القسم الرئيسي
+        function saveHeroData(e) {
+            e.preventDefault();
+            
+            const data = getSiteData();
+            data.hero.title = document.getElementById('heroTitle').value;
+            data.hero.description = document.getElementById('heroDescription').value;
+            
+            // حفظ صورة الخلفية إذا تم رفعها
+            const heroBackgroundInput = document.getElementById('heroBackground');
+            if (heroBackgroundInput.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    data.hero.background = e.target.result;
+                    saveSiteData(data);
+                    showAlert('تم حفظ بيانات القسم الرئيسي بنجاح!', 'success');
+                    
+                    // تحديث المعاينة فوراً
+                    updateImagePreview('heroBackgroundPreview', data.hero.background);
+                };
+                reader.readAsDataURL(heroBackgroundInput.files[0]);
+            } else {
+                saveSiteData(data);
+                showAlert('تم حفظ بيانات القسم الرئيسي بنجاح!', 'success');
+            }
+        }
+
+        // حفظ بيانات التواصل
+        function saveContactData(e) {
+            e.preventDefault();
+            
+            const data = getSiteData();
+            data.contact.phone = document.getElementById('contactPhone').value;
+            data.contact.email = document.getElementById('contactEmail').value;
+            data.contact.location = document.getElementById('contactLocation').value;
+            data.contact.hours = document.getElementById('contactHours').value;
+            
+            saveSiteData(data);
+            showAlert('تم حفظ بيانات التواصل بنجاح!', 'success');
+        }
+
+        // حفظ بيانات التذييل
+        function saveFooterData(e) {
+            e.preventDefault();
+            
+            const data = getSiteData();
+            data.footer.about = document.getElementById('footerAbout').value;
+            data.footer.copyright = document.getElementById('footerCopyright').value;
+            
+            saveSiteData(data);
+            showAlert('تم حفظ بيانات التذييل بنجاح!', 'success');
+        }
+
+        // فتح نموذج الخدمة
+        function openServiceModal(serviceId = null) {
+            const modal = document.getElementById('serviceModal');
+            const title = document.getElementById('serviceModalTitle');
+            
+            if (serviceId) {
+                title.textContent = 'تحرير الخدمة';
+                loadServiceToForm(serviceId);
+            } else {
+                title.textContent = 'إضافة خدمة جديدة';
+                document.getElementById('serviceForm').reset();
+                document.getElementById('serviceId').value = '';
+                updateImagePreview('serviceImagePreview', '');
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        // إغلاق نموذج الخدمة
+        function closeServiceModal() {
+            document.getElementById('serviceModal').style.display = 'none';
+        }
+
+        // تحميل بيانات الخدمة إلى النموذج
+        function loadServiceToForm(serviceId) {
+            const data = getSiteData();
+            const service = data.services.find(s => s.id === serviceId);
+            
+            if (service) {
+                document.getElementById('serviceId').value = service.id;
+                document.getElementById('serviceName').value = service.name;
+                document.getElementById('serviceDescription').value = service.description;
+                document.getElementById('serviceIcon').value = service.icon;
+                document.getElementById('serviceFeatures').value = service.features ? service.features.join(', ') : '';
+                updateImagePreview('serviceImagePreview', service.image);
+            }
+        }
+
+        // تحرير خدمة
+        function editService(serviceId) {
+            openServiceModal(serviceId);
+        }
+
+        // حفظ الخدمة
+        function saveService(e) {
+            e.preventDefault();
+            
+            const data = getSiteData();
+            const serviceId = document.getElementById('serviceId').value;
+            const serviceData = {
+                name: document.getElementById('serviceName').value,
+                description: document.getElementById('serviceDescription').value,
+                icon: document.getElementById('serviceIcon').value,
+                features: document.getElementById('serviceFeatures').value.split(',').map(f => f.trim())
+            };
+            
+            // معالجة صورة الخدمة
+            const serviceImageInput = document.getElementById('serviceImage');
+            if (serviceImageInput.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    serviceData.image = e.target.result;
+                    completeServiceSave(data, serviceId, serviceData);
+                };
+                reader.readAsDataURL(serviceImageInput.files[0]);
+            } else {
+                // إذا لم يتم رفع صورة جديدة، احتفظ بالصورة القديمة
+                if (serviceId) {
+                    const existingService = data.services.find(s => s.id === parseInt(serviceId));
+                    serviceData.image = existingService ? existingService.image : '';
+                } else {
+                    serviceData.image = '';
+                }
+                completeServiceSave(data, serviceId, serviceData);
+            }
+        }
+
+        // إكمال حفظ الخدمة
+        function completeServiceSave(data, serviceId, serviceData) {
+            if (serviceId) {
+                // تحديث خدمة موجودة
+                const index = data.services.findIndex(s => s.id === parseInt(serviceId));
+                if (index !== -1) {
+                    data.services[index] = { ...data.services[index], ...serviceData };
+                }
+            } else {
+                // إضافة خدمة جديدة
+                const newId = data.services.length > 0 ? Math.max(...data.services.map(s => s.id)) + 1 : 1;
+                data.services.push({ id: newId, ...serviceData });
+            }
+            
+            saveSiteData(data);
+            updateServicesTable();
+            updateStatistics();
+            closeServiceModal();
+            showAlert(serviceId ? 'تم تحديث الخدمة بنجاح!' : 'تم إضافة الخدمة بنجاح!', 'success');
+        }
+
+        // حذف خدمة
+        function deleteService(serviceId) {
+            if (confirm('هل أنت متأكد من حذف هذه الخدمة؟')) {
+                const data = getSiteData();
+                data.services = data.services.filter(s => s.id !== serviceId);
+                saveSiteData(data);
+                updateServicesTable();
+                updateStatistics();
+                showAlert('تم حذف الخدمة بنجاح!', 'success');
+            }
+        }
+
+        // فتح نموذج معرض الأعمال
+        function openPortfolioModal(portfolioId = null) {
+            const modal = document.getElementById('portfolioModal');
+            const title = document.getElementById('portfolioModalTitle');
+            
+            if (portfolioId) {
+                title.textContent = 'تحرير العمل';
+                loadPortfolioToForm(portfolioId);
+            } else {
+                title.textContent = 'إضافة عمل جديد';
+                document.getElementById('portfolioForm').reset();
+                document.getElementById('portfolioId').value = '';
+                updateImagePreview('portfolioImagePreview', '');
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        // إغلاق نموذج معرض الأعمال
+        function closePortfolioModal() {
+            document.getElementById('portfolioModal').style.display = 'none';
+        }
+
+        // تحميل بيانات العمل إلى النموذج
+        function loadPortfolioToForm(portfolioId) {
+            const data = getSiteData();
+            const item = data.portfolio.find(p => p.id === portfolioId);
+            
+            if (item) {
+                document.getElementById('portfolioId').value = item.id;
+                document.getElementById('portfolioTitle').value = item.title;
+                document.getElementById('portfolioDescription').value = item.description;
+                document.getElementById('portfolioCategory').value = item.category;
+                updateImagePreview('portfolioImagePreview', item.image);
+            }
+        }
+
+        // تحرير عمل
+        function editPortfolio(portfolioId) {
+            openPortfolioModal(portfolioId);
+        }
+
+        // حفظ العمل
+        function savePortfolio(e) {
+            e.preventDefault();
+            
+            const data = getSiteData();
+            const portfolioId = document.getElementById('portfolioId').value;
+            const portfolioData = {
+                title: document.getElementById('portfolioTitle').value,
+                description: document.getElementById('portfolioDescription').value,
+                category: document.getElementById('portfolioCategory').value
+            };
+            
+            // معالجة صورة العمل
+            const portfolioImageInput = document.getElementById('portfolioImage');
+            if (portfolioImageInput.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    portfolioData.image = e.target.result;
+                    completePortfolioSave(data, portfolioId, portfolioData);
+                };
+                reader.readAsDataURL(portfolioImageInput.files[0]);
+            } else {
+                // إذا لم يتم رفع صورة جديدة، احتفظ بالصورة القديمة
+                if (portfolioId) {
+                    const existingItem = data.portfolio.find(p => p.id === parseInt(portfolioId));
+                    portfolioData.image = existingItem ? existingItem.image : '';
+                } else {
+                    portfolioData.image = '';
+                }
+                completePortfolioSave(data, portfolioId, portfolioData);
+            }
+        }
+
+        // إكمال حفظ العمل
+        function completePortfolioSave(data, portfolioId, portfolioData) {
+            if (portfolioId) {
+                // تحديث عمل موجود
+                const index = data.portfolio.findIndex(p => p.id === parseInt(portfolioId));
+                if (index !== -1) {
+                    data.portfolio[index] = { ...data.portfolio[index], ...portfolioData };
+                }
+            } else {
+                // إضافة عمل جديد
+                const newId = data.portfolio.length > 0 ? Math.max(...data.portfolio.map(p => p.id)) + 1 : 1;
+                data.portfolio.push({ id: newId, ...portfolioData });
+            }
+            
+            saveSiteData(data);
+            updatePortfolioTable();
+            updateStatistics();
+            closePortfolioModal();
+            showAlert(portfolioId ? 'تم تحديث العمل بنجاح!' : 'تم إضافة العمل بنجاح!', 'success');
+        }
+
+        // حذف عمل
+        function deletePortfolio(portfolioId) {
+            if (confirm('هل أنت متأكد من حذف هذا العمل؟')) {
+                const data = getSiteData();
+                data.portfolio = data.portfolio.filter(p => p.id !== portfolioId);
+                saveSiteData(data);
+                updatePortfolioTable();
+                updateStatistics();
+                showAlert('تم حذف العمل بنجاح!', 'success');
+            }
+        }
+
+        // تصدير البيانات
+        function exportData() {
+            const data = getSiteData();
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'saqf-alilm-data.json';
+            link.click();
+            
+            showAlert('تم تصدير البيانات بنجاح!', 'success');
+        }
+
+        // تشغيل استيراد البيانات
+        function triggerImport() {
+            document.getElementById('importFile').click();
+        }
+
+        // استيراد البيانات
+        function importData(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                try {
+                    const importedData = JSON.parse(event.target.result);
+                    saveSiteData(importedData);
+                    loadDataToForms();
+                    updateStatistics();
+                    showAlert('تم استيراد البيانات بنجاح!', 'success');
+                } catch (error) {
+                    showAlert('خطأ في استيراد البيانات! تأكد من صحة الملف.', 'error');
+                }
+            };
+            reader.readAsText(file);
+            
+            // إعادة تعيين حقل الملف للسماح باستيراد نفس الملف مرة أخرى
+            e.target.value = '';
+        }
+
+        // عرض التنبيهات
+        function showAlert(message, type) {
+            // إنشاء عنصر التنبيه
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                ${message}
+            `;
+            
+            // إضافة التنبيه إلى الصفحة
+            const content = document.querySelector('.content');
+            content.insertBefore(alert, content.firstChild);
+            
+            // إزالة التنبيه بعد 5 ثوانٍ
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        // إضافة مستمع لحدث قبل إغلاق النافذة
+        window.addEventListener('beforeunload', function() {
+            console.log('يتم حفظ البيانات قبل إغلاق النافذة...');
+            // تأكد من حفظ أي بيانات معلقة
+            const data = getSiteData();
+            saveSiteData(data);
+        });
+    </script>
+</body>
+</html>
